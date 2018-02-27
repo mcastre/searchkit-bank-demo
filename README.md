@@ -1,10 +1,10 @@
-## Searchkit Starter App
 
-Used to start new applications which use Searchkit. Based off the popular create-react-app. If you dont know about `create-react-app`, please read their [readme](https://github.com/facebookincubator/create-react-app/blob/master/README.md) and install create-react-app on your machine 
+# searchkit-bank-demo
+Demo application that uses a React Searchkit interface and Elasticsearch queries
 
 ##  Install instructions
 
-- git clone git@github.com:searchkit/searchkit-starter-app.git
-- cd searchkit-starter-app
-- yarn
+- git clone https://github.com/mcastre/searchkit-bank-demo.git
+- cd searchkit-bank-demo
+- npm install
 - npm start
