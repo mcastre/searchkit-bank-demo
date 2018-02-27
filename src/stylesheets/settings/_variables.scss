@@ -1,0 +1,65 @@
+// VARIABLES FILE
+
+/* Util functions
+# REM calc
+*/
+
+$mc-rem-base: 16px !default;
+
+// It strips the unit of measure and returns it
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+@function convert-to-rem($value, $base-value: $mc-rem-base)  {
+  $value: strip-unit($value) / strip-unit($base-value) * 1rem;
+  @if ($value == 0rem) { $value: 0; } // Turn 0em into 0
+  @return $value;
+}
+
+@function rem-calc($values, $base-value: $mc-rem-base) {
+  $max: length($values);
+
+  @if $max == 1 { @return convert-to-rem(nth($values, 1), $base-value); }
+
+  $remValues: ();
+  @for $i from 1 through $max {
+    $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
+  }
+  @return $remValues;
+}
+
+/* SG
+# Style Colors/Primary Colors
+*/
+
+$mc-primary-purple: #c433cd !default;
+$mc-light-grey: #f2f2f2 !default;
+$mc-medium-grey: #666 !default;
+$mc-dark-grey: #999 !default;
+$mc-background-grey: #ececec !default;
+
+/* Util vars
+# Borders
+*/
+
+$mc-border-color: #d7d7d7 !default;
+$mc-border: 1px solid $mc-border-color !default;
+
+$mc-border-radius-small: 2px !default;
+$mc-border-radius-large: 6px !default;
+$mc-border-radius-full: 100rem !default;
+
+/* Typography
+# Font, Text Sizes and Weight
+*/
+
+$mc-font-family: 'Noto Sans', sans-serif !default;
+$mc-font-medium-weight: 400 !default;
+$mc-font-bold-weight: 700 !default;
+
+$mc-text-xxl:     rem-calc(64) !default;
+$mc-text-xl:      rem-calc(36) !default;
+$mc-text-large:   rem-calc(18) !default;
+$mc-text-medium:  rem-calc(14) !default;
+$mc-text-small:   rem-calc(12) !default;

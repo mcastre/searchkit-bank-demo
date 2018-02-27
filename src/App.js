@@ -2,48 +2,25 @@ import React, { Component } from 'react'
 import extend from 'lodash/extend'
 import { SearchkitManager,SearchkitProvider,
   SearchBox, RefinementListFilter, Pagination,
-  HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
+  HierarchicalMenuFilter, HitsStats, NoHits,
   ResetFilters, RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, DynamicRangeFilter,
   InputFilter, GroupedSelectedFilters,
   Layout, TopBar, LayoutBody, LayoutResults,
-  ActionBar, ActionBarRow, SideBar } from 'searchkit'
-import './index.css'
+  ActionBar, ActionBarRow, SideBar, CheckboxFilter, TermQuery } from 'searchkit'
 
-const host = "http://demo.searchkit.co/api/movies"
-const searchkit = new SearchkitManager(host)
+import { PeopleHitsListItem } from './PeopleHitsListItem';
+import { PeopleHitsGridItem } from './PeopleHitsGridItem';
+import stateHashes from './models/states-hash.json';
 
-const MovieHitsGridItem = (props)=> {
-  const {bemBlocks, result} = props
-  let url = "http://www.imdb.com/title/" + result._source.imdbId
-  const source = extend({}, result._source, result.highlight)
-  return (
-    <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
-      <a href={url} target="_blank">
-        <img data-qa="poster" alt="presentation" className={bemBlocks.item("poster")} src={result._source.poster} width="170" height="240"/>
-        <div data-qa="title" className={bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:source.title}}></div>
-      </a>
-    </div>
-  )
-}
+import './stylesheets/App.css';
 
-const MovieHitsListItem = (props)=> {
-  const {bemBlocks, result} = props
-  let url = "http://www.imdb.com/title/" + result._source.imdbId
-  const source = extend({}, result._source, result.highlight)
-  return (
-    <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
-      <div className={bemBlocks.item("poster")}>
-        <img alt="presentation" data-qa="poster" src={result._source.poster}/>
-      </div>
-      <div className={bemBlocks.item("details")}>
-        <a href={url} target="_blank"><h2 className={bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:source.title}}></h2></a>
-        <h3 className={bemBlocks.item("subtitle")}>Released in {source.year}, rated {source.imdbRating}/10</h3>
-        <div className={bemBlocks.item("text")} dangerouslySetInnerHTML={{__html:source.plot}}></div>
-      </div>
-    </div>
-  )
-}
+const host = "http://localhost:9200/bank"
+const searchkit = new SearchkitManager(host);
+
+const sourceFields = ['account_number', 'balance', 'firstname', 'lastname', 'age', 'gender', 'address', 'employer', 'email', 'city', 'state'];
+
+const queryFields = ['firstname.keyword', 'lastname.keyword', 'address.keyword', 'employer.keyword', 'email.keyword', 'account_number'];
 
 class App extends Component {
   render() {
@@ -51,40 +28,49 @@ class App extends Component {
       <SearchkitProvider searchkit={searchkit}>
         <Layout>
           <TopBar>
-            <div className="my-logo">Searchkit Acme co</div>
-            <SearchBox autofocus={true} searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
+            <div className="my-logo">Searchkit Bank</div>
+            <SearchBox autofocus={true} searchOnChange={true} queryFields={queryFields}/>
           </TopBar>
 
         <LayoutBody>
-
           <SideBar>
-            <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
-            <DynamicRangeFilter field="metaScore" id="metascore" title="Metascore" rangeFormatter={(count)=> count + "*"}/>
-            <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true}/>
-            <InputFilter id="writers" searchThrottleTime={500} title="Writers" placeholder="Search writers" searchOnChange={true} queryFields={["writers"]} />
-            <RefinementListFilter id="actors" title="Actors" field="actors.raw" size={10}/>
-            <RefinementListFilter id="writersFacets" translations={{"facets.view_more":"View more writers"}} title="Writers" field="writers.raw" operator="OR" size={10}/>
-            <RefinementListFilter id="countries" title="Countries" field="countries.raw" operator="OR" size={10}/>
-            <NumericRefinementListFilter id="runtimeMinutes" title="Length" field="runtimeMinutes" options={[
-              {title:"All"},
-              {title:"up to 20", from:0, to:20},
-              {title:"21 to 60", from:21, to:60},
-              {title:"60 or more", from:61, to:1000}
-            ]}/>
+            <RangeFilter
+              min={0}
+              max={100}
+              field="age"
+              id="age"
+              title="Age"
+              showHistogram={true}/>
+            <RefinementListFilter
+              id="gender"
+              title="Gender"
+              field="gender.keyword"
+              translations={{"F": "Female", "M": "Male"}}>
+            </RefinementListFilter>
+            <RefinementListFilter
+              id="state"
+              title="State"
+              field="state.keyword"
+              size={10}
+              translations={stateHashes}
+              orderKey="_term">
+            </RefinementListFilter>
+            <NumericRefinementListFilter id="balance" title="Account Balance (USD)" field="balance" options={[
+              {title: 'All'},
+              {title: '< $15,000', from: 0, to:15000},
+              {title: '$15,000 - $45,000', from: 15000, to:45000},
+              {title: '$45,000 - $90,000', from: 45000, to:90000}
+            ]}>
+            </NumericRefinementListFilter>
           </SideBar>
           <LayoutResults>
             <ActionBar>
-
               <ActionBarRow>
+                <h1 className="page-title">Accounts</h1>
                 <HitsStats translations={{
                   "hitstats.results_found":"{hitCount} results found"
                 }}/>
                 <ViewSwitcherToggle/>
-                <SortingSelector options={[
-                  {label:"Relevance", field:"_score", order:"desc"},
-                  {label:"Latest Releases", field:"released", order:"desc"},
-                  {label:"Earliest Releases", field:"released", order:"asc"}
-                ]}/>
               </ActionBarRow>
 
               <ActionBarRow>
@@ -94,15 +80,14 @@ class App extends Component {
 
             </ActionBar>
             <ViewSwitcherHits
-                hitsPerPage={12} highlightFields={["title","plot"]}
-                sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year"]}
+                hitsPerPage={10}
+                sourceFilter={sourceFields}
                 hitComponents={[
-                  {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
-                  {key:"list", title:"List", itemComponent:MovieHitsListItem}
+                  {key:"list", title:"List", itemComponent:PeopleHitsListItem, defaultOption:true},
+                  {key:"grid", title:"Grid", itemComponent:PeopleHitsGridItem}
                 ]}
                 scrollTo="body"
             />
-            <NoHits suggestionsField={"title"}/>
             <Pagination showNumbers={true}/>
           </LayoutResults>
 
