@@ -1,0 +1,21 @@
+html, body {
+  font-family: $mc-font-family;
+}
+
+.mc-person-name {
+  font-family: $mc-font-family;
+  font-weight: $mc-font-medium-weight;
+  color: $mc-dark-grey;
+  font-size: 1.5rem;
+}
+
+.mc-person-detail-text {
+  font-family: $mc-font-family;
+  color: $mc-medium-grey;
+  margin-right: 1rem;
+}
+.page-title {
+  flex: 1 1;
+  margin: 0;
+  color: $mc-medium-grey;
+}

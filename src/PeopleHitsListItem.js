@@ -39,22 +39,45 @@ export class PeopleHitsListItem extends React.Component {
     return (
       <div className="mc-list-hit-item">
         <div className="mc-person-top-info">
-          <PersonImage imageUrl={this.state.imageUrl}></PersonImage>
-          <dl className="mc-person-info">
-            <dt>Account Holder</dt>
-            <dd>{this.person.firstname} {this.person.lastname}</dd>
+          <div className="mc-person-top-details">
+            <PersonImage imageUrl={this.state.imageUrl}></PersonImage>
+            <dl className="mc-person-info">
+              <dt>Account Holder</dt>
+              <dd>{this.person.firstname} {this.person.lastname}</dd>
+            </dl>
+            <dl className="mc-person-info">
+              <dt>Account Number</dt>
+              <dd>{this.person.account_number}</dd>
+            </dl>
+            <dl className="mc-person-info">
+              <dt>Available balance</dt>
+              <dd>${this._formatCurrency(this.person.balance)}</dd>
+            </dl>
+          </div>
+          <div className="mc-person-actions actions-button-bar">
+            <button className="mc-default-button">Statements</button>
+            <button className="mc-default-button">History</button>
+          </div>
+        </div>
+        <div className="mc-person-quick-details">
+          <dl className="mc-person-info horizontal">
+            <dt>Address:</dt>
+            <dd>{this.person.address}, {this.person.city}, {this.person.state}</dd>
           </dl>
-          <dl className="mc-person-info">
-            <dt>Account Number</dt>
-            <dd>{this.person.account_number}</dd>
-          </dl>
-          <dl className="mc-person-info">
-            <dt>Available balance</dt>
-            <dd>${this._formatCurrency(this.person.balance)}</dd>
+          <dl className="mc-person-info horizontal">
+            <dt>Phone:</dt>
+            <dd>205-999-9999</dd>
           </dl>
         </div>
         <div className="mc-person-quick-details">
-          <span className="mc-person-detail-text">Address: <strong>{this.person.address}, {this.person.city}, {this.person.state}</strong></span>
+          <dl className="mc-person-info horizontal">
+            <dt>Email:</dt>
+            <dd>{this.person.email}</dd>
+          </dl>
+          <dl className="mc-person-info horizontal">
+            <dt>Employer:</dt>
+            <dd>{this.person.employer}</dd>
+          </dl>
         </div>
       </div>
     );

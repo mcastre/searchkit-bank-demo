@@ -1,0 +1,27 @@
+.mc-default-button {
+  flex: 1;
+  background-color: white;
+  border: 1px solid $mc-border-color;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: $mc-text-medium;
+  color: $mc-dark-grey;
+  padding: 5px 20px;
+  border-radius: $mc-border-radius-large;
+  text-decoration: none;
+  white-space: nowrap;
+  height: 34px;
+  line-height: 22px;
+  text-align: center;
+  -webkit-transition: all 400ms linear;
+  transition: all 400ms linear;
+  &:hover, &:focus {
+    background-color: darken($mc-light-grey, 0.2);
+  }
+}
+
+.actions-button-bar {
+  .mc-default-button:first-child {
+    margin-right: 5px;
+  }
+}

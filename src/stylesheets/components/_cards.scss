@@ -1,0 +1,55 @@
+.mc-grid-hit-item {
+  display: inline-block;
+  background: white;
+  padding: 1rem;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  -webkit-border-radius: $mc-border-radius-large;
+  border-radius: $mc-border-radius-large;
+  -webkit-box-shadow: 0 3px 7px rgba(0,0,0,0.08);
+  box-shadow: 0 3px 7px rgba(0,0,0,0.08);
+  width: calc(100% / 5);
+  min-height: 303px;
+}
+
+.mc-profile-circle.grid {
+  display: block;
+  float: none;
+  width: 90px;
+  margin: 0 auto;
+}
+
+.mc-profile-circle.grid img {
+  margin-right: 0;
+}
+
+.mc-person-quick-details.grid {
+  width: 100%;
+  text-align: center;
+  line-height: inherit;
+}
+
+.mc-person-detail-text.grid {
+  margin: 3px 0;
+}
+
+.mc-person-quick-details {
+  width: 45%;
+  display: inline-block;
+  line-height: 10px;
+  padding-top: 1rem;
+}
+
+.mc-person-top-info {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $mc-border-color;
+  align-items: center;
+}
+
+.mc-person-top-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 607px;
+}

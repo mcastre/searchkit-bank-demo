@@ -34,34 +34,36 @@ class App extends Component {
 
         <LayoutBody>
           <SideBar>
-            <RangeFilter
-              min={0}
-              max={100}
-              field="age"
-              id="age"
-              title="Age"
-              showHistogram={true}/>
-            <RefinementListFilter
-              id="gender"
-              title="Gender"
-              field="gender.keyword"
-              translations={{"F": "Female", "M": "Male"}}>
-            </RefinementListFilter>
-            <RefinementListFilter
-              id="state"
-              title="State"
-              field="state.keyword"
-              size={10}
-              translations={stateHashes}
-              orderKey="_term">
-            </RefinementListFilter>
-            <NumericRefinementListFilter id="balance" title="Account Balance (USD)" field="balance" options={[
-              {title: 'All'},
-              {title: '< $15,000', from: 0, to:15000},
-              {title: '$15,000 - $45,000', from: 15000, to:45000},
-              {title: '$45,000 - $90,000', from: 45000, to:90000}
-            ]}>
-            </NumericRefinementListFilter>
+            <div className="filters-sidebar">
+              <RangeFilter
+                min={0}
+                max={100}
+                field="age"
+                id="age"
+                title="Age"
+                showHistogram={true}/>
+              <RefinementListFilter
+                id="gender"
+                title="Gender"
+                field="gender.keyword"
+                translations={{"F": "Female", "M": "Male"}}>
+              </RefinementListFilter>
+              <RefinementListFilter
+                id="state"
+                title="State"
+                field="state.keyword"
+                size={10}
+                translations={stateHashes}
+                orderKey="_term">
+              </RefinementListFilter>
+              <NumericRefinementListFilter id="balance" title="Account Balance (USD)" field="balance" options={[
+                {title: 'All'},
+                {title: '< $15,000', from: 0, to:15000},
+                {title: '$15,000 - $45,000', from: 15000, to:45000},
+                {title: '$45,000 - $90,000', from: 45000, to:90000}
+              ]}>
+              </NumericRefinementListFilter>
+            </div>
           </SideBar>
           <LayoutResults>
             <ActionBar>

@@ -1,0 +1,42 @@
+.mc-list-hit-item {
+  width: 100%;
+  margin-bottom: 15px;
+  background: white;
+  -webkit-border-radius: $mc-border-radius-large;
+  border-radius: $mc-border-radius-large;
+  -webkit-box-shadow: 0 3px 7px rgba(0,0,0,0.08);
+  box-shadow: 0 3px 7px rgba(0,0,0,0.08);
+  padding: 2rem;
+  -webkit-transition: box-shadow 300ms linear;
+  transition: box-shadow 300ms linear;
+  &:hover {
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+}
+
+.mc-person-info {
+  text-align: left;
+  dt {
+    font-size: $mc-text-medium;
+    color: #a2a2a2;
+  }
+  dd {
+    font-size: $mc-text-large;
+    margin: 0;
+    color: $mc-medium-grey;
+  }
+  &.horizontal {
+    dt {
+      float: left;
+      font-size: $mc-text-large;
+      color: #a2a2a2;
+      margin-right: 3rem;
+      min-width: 100px;
+    }
+    dd {
+      font-size: $mc-text-large;
+      white-space: nowrap;
+    }
+  }
+}

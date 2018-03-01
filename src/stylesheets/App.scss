@@ -2,113 +2,14 @@
   'settings/variables';
 
 @import
+  'components/typography',
+  'components/buttons',
+  'components/cards',
+  'components/lists',
+  'components/media';
+
+@import
+  'layout/sidebar';
+
+@import
   'vendor/searchkit';
-
-html, body {
-  font-family: $mc-font-family;
-}
-
-.mc-list-hit-item {
-  width: 100%;
-  margin-bottom: 15px;
-  background: white;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  -webkit-box-shadow: 0 3px 7px rgba(0,0,0,0.08);
-  box-shadow: 0 3px 7px rgba(0,0,0,0.08);
-  padding: 2rem;
-  -webkit-transition: box-shadow 300ms linear;
-  transition: box-shadow 300ms linear;
-  &:hover {
-    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-  }
-}
-
-.mc-grid-hit-item {
-  display: inline-block;
-  padding: 1rem;
-  margin-bottom: 20px;
-  margin-right: 20px;
-  /* border: 1px solid #e5e5e5; */
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  width: calc(100% / 5);
-  min-height: 303px;
-}
-
-.mc-profile-circle {
-  display: inline-block;
-  float: left;
-}
-
-.mc-profile-circle img {
-  width: 60px;
-  height: 60px;
-  margin-right: 2rem;
-  border-radius: 100rem;
-}
-
-.mc-profile-circle.grid {
-  display: block;
-  float: none;
-  width: 90px;
-  margin: 0 auto;
-}
-
-.mc-profile-circle.grid img {
-  margin-right: 0;
-}
-
-.mc-display-flex {
-  display: flex !important;
-}
-
-.mc-person-quick-details {
-  display: inline-block;
-  line-height: 10px;
-}
-.mc-person-quick-details.grid {
-  text-align: center;
-  line-height: inherit;
-}
-
-.mc-person-name {
-  font-family: 'Noto Sans', sans-serif;
-  font-weight: 400;
-  color: #999;
-  font-size: 1.5rem;
-}
-
-.mc-person-detail-text {
-  font-family: 'Noto Sans', sans-serif;
-  color: #666;
-  margin-right: 1rem;
-}
-
-.mc-person-detail-text.grid {
-  margin: 3px 0;
-}
-
-.page-title {
-  flex: 1 1;
-  margin: 0;
-  color: $mc-medium-grey;
-}
-.mc-person-top-info {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid $mc-border-color;
-}
-.mc-person-info {
-  text-align: left;
-  dt {
-    font-size: $mc-text-medium;
-    color: #a2a2a2;
-  }
-  dd {
-    font-size: $mc-text-large;
-    margin: 0;
-    color: $mc-medium-grey;
-  }
-}
